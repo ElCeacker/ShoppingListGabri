@@ -5,10 +5,10 @@ import {
     Text, 
     View } from 'react-native';
 
-const ListItem = ({ productName, onProductRemove }) => {
-return (
+const ListItem = ({ productName, showDatas }) => {
+  return (
         <View style={styles.listItem}>
-            <Pressable style={{flexDirection: 'row'}} onPress={() => onProductRemove(productName)}>
+            <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
                 <Image style={styles.productImage} source={require('../assets/bigIcon.png')} />
             </Pressable>
             <Text style={styles.productName}>{productName}</Text>

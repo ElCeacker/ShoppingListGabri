@@ -2,18 +2,45 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import ProductInput from './components/ProductInput';
 import ListItem from './components/ListItem';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function App() {
+
   const [ products, setProducts ] = useState([]);
 
+  types = [
+    'Fruit',
+    'Vegetable',
+    'Bakery',
+    'Fish',
+    'Meat'
+  ]
+  // console.log(uuidv4());
+  
+
   const addProductHandler = (productName) => {
-    setProducts(() => [...products, productName]);
+    setProducts(() => [
+      ...products,
+      productName,
+    ]);
+    
+    let product ={
+      id : uuidv4().slice(0,8),
+      name : productName,
+      quantity : 1,
+      bought : false,
+      type : types
+    }
+    console.log(product);
   }
 
-  const removeProductHandler = (productName) => {
-    console.log(productName);
-    setProducts(() => products.filter((product) => product !== productName));
+  const showDatas = (productName) => {
+    // Esto es para borrar
+    // setProducts(() => products.filter((product) => product !== productName));
+    console.log(product[0]);
   }
+
+  
 
   return (
     <View style={styles.container}>
@@ -28,7 +55,8 @@ export default function App() {
                 <ListItem 
                   key={idx+product} 
                   productName={product} 
-                  onProductRemove={removeProductHandler}/>
+                  showDatas={showDatas}
+                  />
               ))
           }
         </View>
