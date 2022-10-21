@@ -5,15 +5,18 @@ import {
     Text, 
     View } from 'react-native';
 
-const ListItem = ({ productName, showDatas }) => {
-  return (
-        <View style={styles.listItem}>
-            <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
-                <Image style={styles.productImage} source={require('../assets/bigIcon.png')} />
-            </Pressable>
-            <Text style={styles.productName}>{productName}</Text>
-            
-        </View>
+const ListItem = ({ productName, showDatas, id }) => {
+
+    return (
+        <>
+            <View style={styles.listItem}>
+                <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName, id)}>
+                    <Image style={styles.productImage} source={require('../assets/bigIcon.png')} />
+                </Pressable>
+                <Text style={styles.productName}>{productName}</Text>
+                
+            </View>
+        </>
     )
 }
 
@@ -36,7 +39,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         alignContent: 'center'
-    }
+    },
+    
 });
 
 export default ListItem

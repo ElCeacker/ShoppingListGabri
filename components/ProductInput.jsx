@@ -24,6 +24,8 @@ const ProductInput = ({ onProductAdd }) => {
                 keyboardType="default"
                 onChangeText={changeTextHandler}
                 value={productName} />
+            {/* <TextInput style={styles.quantityInput}
+            placeholder='Quantity'/> */}
             <Button
                 style={styles.addButton}
                 title="Añadir"
@@ -49,7 +51,12 @@ const styles = StyleSheet.create({
     },
     addButton: {
         flex: 1
-    }
+    },
+    // quantityInput: {
+    //     flexDirection: 'column',
+    //     flex: 4,
+    //     color: 'white'
+    // }
 });
 
 export default ProductInput;

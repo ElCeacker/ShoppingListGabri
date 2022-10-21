@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import ProductInput from './components/ProductInput';
 import ListItem from './components/ListItem';
 import { v4 as uuidv4 } from 'uuid';
+import { disableErrorHandling } from 'expo';
 
 export default function App() {
 
@@ -15,32 +16,34 @@ export default function App() {
     'Fish',
     'Meat'
   ]
-  // console.log(uuidv4());
-  
+
+  let dataProduct ={
+    id : uuidv4().slice(0,8),
+    name : products.productName,
+    quantity : 1,
+    bought : false,
+    type : types
+  }
 
   const addProductHandler = (productName) => {
     setProducts(() => [
       ...products,
       productName,
     ]);
-    
-    let product ={
-      id : uuidv4().slice(0,8),
-      name : productName,
-      quantity : 1,
-      bought : false,
-      type : types
-    }
-    console.log(product);
-  }
+    dataProduct.name = productName;
+  };
 
-  const showDatas = (productName) => {
+  const showDatas = (productName, id) => {
     // Esto es para borrar
-    // setProducts(() => products.filter((product) => product !== productName));
-    console.log(product[0]);
-  }
+    // setProducts(() => products.filter((product) => product !== productName))
+    dataProduct.name = productName;
+    dataProduct.bought = !dataProduct.bought;
+    console.log(dataProduct);
+  };
 
-  
+  const clear = () => {
+    setProducts(() => [])
+  };
 
   return (
     <View style={styles.container}>
@@ -56,12 +59,18 @@ export default function App() {
                   key={idx+product} 
                   productName={product} 
                   showDatas={showDatas}
+                  clear={clear}
+                  id = {dataProduct.id}
                   />
               ))
           }
         </View>
         </ScrollView>
+        <View style={styles.buttonClear}>
+          {products.length === 0 ? <Button style={styles.buttonClear} title="Clear" onPress={clear} disabled={true}/> : <Button style={styles.buttonClear} title="Clear" onPress={clear}/>}
+        </View>
     </View>
+    
   );
 }
 
@@ -82,5 +91,9 @@ const styles = StyleSheet.create({
   },
   productScroll: {
     width: '100%'
+  },
+  buttonClear: {
+    marginTop: 15,
+    marginBottom: 30,
   }
 });
