@@ -9,13 +9,13 @@ export default function App() {
   const [ products, setProducts ] = useState([]);
   const [ productList, setProductList ] = useState([]);
 
-  const addProductHandler = (productName, quantity) => {
+  const addProductHandler = (productName, quantity, type) => {
     let dataProduct = {
       id : uuidv4().slice(0,8),
       name : productName,
       quantity : quantity,
       bought : false,
-      type : ''
+      type : type
     };
     setProducts(() => [
       ...products,
@@ -26,7 +26,7 @@ export default function App() {
       dataProduct
     ])
   };
-
+  
   const showDatas = (productName) => {
     productName.bought = !productName.bought;
     console.log(productName);
@@ -48,7 +48,7 @@ export default function App() {
         <View style={styles.productList}>
           { 
             products.length === 0 
-              ? <Text>Aún no hay productos</Text> 
+              ? <Text>Empty Shopping List</Text> 
               : productList.map((product, idx) => (
                 <ListItem 
                   key={idx+product} 

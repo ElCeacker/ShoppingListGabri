@@ -6,23 +6,39 @@ import {
     View } from 'react-native';
 
 const ListItem = ({ productName, showDatas }) => {
+
+    const imagenTypes = (food) => {
+        switch(food) {
+            case 'Fruit':
+                return require('../assets/frutas.png')
+            case 'Vegetable':
+                return require('../assets/fruits-and-vegetables.png')
+            case 'Bakery':
+                return require('../assets/un-pan.png')
+            case 'Fish':
+                return require('../assets/pescado.png')
+            case 'Meat':
+                return require('../assets/carne-de-vaca.png')
+        }
+    }
+    
     return (
-        <>
-            {/* { showDatas ? */}
-                <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
-                    <View style={styles.listItem}>
-                        <Image style={styles.productImage} source={require('../assets/bigIcon.png')} />
-                        <Text style={styles.productName}>{productName.quantity}X {productName.name}</Text>
-                    </View> 
-                </Pressable>
-                {/* :
-                <View style={styles.gris}>
-                    <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
-                        <Image style={styles.productImage} source={require('../assets/bigIcon.png')} />
-                    </Pressable>
-                <Text style={styles.productName}>{productName}</Text>
-            </View>
-            } */}
+        <>  
+        {  productName.bought ?
+            <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
+                <View style={styles.itemSelected}>
+                    <Image style={styles.productImage} source={imagenTypes(productName.type.label)} />
+                    <Text style={styles.productName}>{productName.quantity} X {productName.name}</Text>
+                </View> 
+            </Pressable>
+            :
+            <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
+                <View style={styles.listItem}>
+                    <Image style={styles.productImage} source={imagenTypes(productName.type.label)} />
+                    <Text style={styles.productName}>{productName.quantity} X {productName.name}</Text>
+                </View> 
+            </Pressable>
+        }
         </>
     )
 }
@@ -47,7 +63,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignContent: 'center'
     },
-    gris: {
+    itemSelected: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
