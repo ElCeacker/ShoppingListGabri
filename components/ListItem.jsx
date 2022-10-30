@@ -4,8 +4,11 @@ import {
     StyleSheet, 
     Text, 
     View } from 'react-native';
+    import { useState } from 'react';
 
-const ListItem = ({ productName, showDatas }) => {
+const ListItem = ({ product, showDatas }) => {
+
+    const [ reloadBought, setReloadBought ] = useState(product);
 
     const imagenTypes = (food) => {
         switch(food) {
@@ -20,25 +23,21 @@ const ListItem = ({ productName, showDatas }) => {
             case 'Meat':
                 return require('../assets/carne-de-vaca.png')
         }
-    }
+    };
     
+    const actualizarBought = (product) => {
+        setReloadBought(showDatas(product));
+        return product.bought
+    }
+
     return (
         <>  
-        {  productName.bought ?
-            <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
-                <View style={styles.itemSelected}>
-                    <Image style={styles.productImage} source={imagenTypes(productName.type.label)} />
-                    <Text style={styles.productName}>{productName.quantity} X {productName.name}</Text>
-                </View> 
-            </Pressable>
-            :
-            <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
-                <View style={styles.listItem}>
-                    <Image style={styles.productImage} source={imagenTypes(productName.type.label)} />
-                    <Text style={styles.productName}>{productName.quantity} X {productName.name}</Text>
-                </View> 
-            </Pressable>
-        }
+        <Pressable style={{flexDirection: 'row'}} onPress={() => actualizarBought(product)}>
+            <View style={product.bought ? styles.itemSelected : styles.listItem}>
+                <Image style={styles.productImage} source={imagenTypes(product.type.label)} />
+                <Text style={styles.product}>{product.quantity} X {product.name}</Text>
+            </View> 
+        </Pressable>
         </>
     )
 }
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#76d275',
         borderRadius: 5,
         width: '80%',
         marginBottom: 5,
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50
     },
-    productName: {
+    product: {
         fontSize: 18,
         textAlign: 'center',
         alignContent: 'center'
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: 'grey',
+        backgroundColor: '#003300',
         borderRadius: 5,
         width: '80%',
         marginBottom: 5,

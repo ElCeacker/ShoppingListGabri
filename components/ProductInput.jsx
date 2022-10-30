@@ -53,8 +53,8 @@ const ProductInput = ({ onProductAdd }) => {
                     style={styles.typesOfFood}
                     labelField="label" 
                     valueField="value" 
-                    value={types.label} 
-                    placeholder={'Type'}
+                    value={type.label} 
+                    placeholder= {"Type"}
                     onChange={changeTypeHandler}/>
             </View>
             <View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 5,
         padding: 10,
-        marginTop: 30
+        marginTop: 5
     },
     productName: {
         color: 'black',

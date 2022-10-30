@@ -29,21 +29,20 @@ export default function App() {
   
   const showDatas = (productName) => {
     productName.bought = !productName.bought;
-    console.log(productName);
+    return productName.bought;
   };
 
   const clear = () => {
-     // Esto es para borrar
+    // Esto es para borrar
     // setProducts(() => products.filter((product) => product !== productName))
     setProducts(() => [])
     setProductList(() => [])
-    console.log("Módulos borrados");
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.listaCompra}>Mercadona App</Text>
       <ProductInput onProductAdd={addProductHandler}/>
-
         <ScrollView style={styles.productScroll}>
         <View style={styles.productList}>
           { 
@@ -52,7 +51,7 @@ export default function App() {
               : productList.map((product, idx) => (
                 <ListItem 
                   key={idx+product} 
-                  productName={product} 
+                  product={product} 
                   showDatas={showDatas}
                   />
               ))
@@ -72,9 +71,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
-    marginTop: 30,
+    marginTop: 0,
     backgroundColor: 'lightgray',
-
+    backgroundColor: '#00675b'
+  },
+  listaCompra: {
+    marginTop: 30,
+    fontSize: 30,
+    color: 'white'
   },
   productList: {
     marginTop: 10,
