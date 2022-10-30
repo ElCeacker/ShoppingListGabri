@@ -1,30 +1,40 @@
 import { useState } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
-// import ModalSelector from 'react-native-modal-selector'
+import SelectDropdown from 'react-native-select-dropdown'
 
 const ProductInput = ({ onProductAdd }) => {
 
     const [productName, setProductName] = useState('');
+    const [quantity, setQuantity] = useState('');
 
     const changeTextHandler = (value) => {
         setProductName(value);
     }
-
+    const changeQuantityHandler = (value) => {
+        setQuantity(value);
+    }
+    
     const addProductHandler = () => {
         const sanitizedName = productName.trim()
+        let quantityadd = quantity;
+        console.log(sanitizedName);
         if (sanitizedName !== '') {
-            onProductAdd(sanitizedName);
+            if(quantity === '') {
+                quantityadd = 1
+            }
+            onProductAdd(sanitizedName, parseInt(quantityadd));
         }
+        setQuantity('');
         setProductName('');
     }
 
-    // const types = [
-    //     { label: 1, value: 'Fruit' },
-    //     { label: 2, value: 'Vegetable' },
-    //     { label: 3, value: 'Bakery' },
-    //     { label: 4, value: 'Fish' },
-    //     { label: 5, value: 'Meat' },
-    // ]
+    const types = [
+        'Fruit',
+        'Vegetable',
+        'Bakery',
+        'Fish',
+        'Meat',
+    ]
 
     return (
         <View style={styles.productInput}>
@@ -34,11 +44,10 @@ const ProductInput = ({ onProductAdd }) => {
                     keyboardType="default"
                     onChangeText={changeTextHandler}
                     value={productName}/>
-                <TextInput placeholder='Type'/>
-                
+                <SelectDropdown style={styles.typesOfFood} data={types}/>
             </View>
             <View>
-                <TextInput keyboardType='numeric' placeholder='Quantity'/>
+                <TextInput keyboardType='numeric' placeholder='Quantity' onChangeText={changeQuantityHandler} value={quantity}/>
             <Button
                     style={styles.addButton}
                     title="Añadir"
@@ -58,6 +67,7 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 5,
         padding: 10,
+        marginTop: 30
     },
     productName: {
         color: 'black',
@@ -71,6 +81,10 @@ const styles = StyleSheet.create({
     //     flex: 4,
     //     color: 'white'
     // }
+
+    typesOfFood: {
+        width: 10
+    }
 });
 
 export default ProductInput;

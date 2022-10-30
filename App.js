@@ -9,19 +9,11 @@ export default function App() {
   const [ products, setProducts ] = useState([]);
   const [ productList, setProductList ] = useState([]);
 
-  types = [
-    'Fruit',
-    'Vegetable',
-    'Bakery',
-    'Fish',
-    'Meat'
-  ]
-
-  const addProductHandler = (productName) => {
+  const addProductHandler = (productName, quantity) => {
     let dataProduct = {
       id : uuidv4().slice(0,8),
       name : productName,
-      quantity : 1,
+      quantity : quantity,
       bought : false,
       type : ''
     };
@@ -36,18 +28,8 @@ export default function App() {
   };
 
   const showDatas = (productName) => {
-    let filtro = products.filter(element => element == productName);
-    let filtroString = filtro.join('')
-    let objetoProductName = products.indexOf(filtroString);
-    
-    for (let i = 0; i < productList.length; i++) {
-      if (productList[i].name === filtroString) {
-        objetoProductName = productList[i]
-        productList[i].bought = !productList[i].bought;
-      }
-    }
-    
-    console.log(objetoProductName); 
+    productName.bought = !productName.bought;
+    console.log(productName);
   };
 
   const clear = () => {
@@ -67,7 +49,7 @@ export default function App() {
           { 
             products.length === 0 
               ? <Text>Aún no hay productos</Text> 
-              : products.map((product, idx) => (
+              : productList.map((product, idx) => (
                 <ListItem 
                   key={idx+product} 
                   productName={product} 

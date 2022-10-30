@@ -9,12 +9,12 @@ const ListItem = ({ productName, showDatas }) => {
     return (
         <>
             {/* { showDatas ? */}
-                <View style={styles.listItem}>
-                    <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
+                <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
+                    <View style={styles.listItem}>
                         <Image style={styles.productImage} source={require('../assets/bigIcon.png')} />
-                    </Pressable>
-                    <Text style={styles.productName}>{productName}</Text>
-                </View> 
+                        <Text style={styles.productName}>{productName.quantity}X {productName.name}</Text>
+                    </View> 
+                </Pressable>
                 {/* :
                 <View style={styles.gris}>
                     <Pressable style={{flexDirection: 'row'}} onPress={() => showDatas(productName)}>
